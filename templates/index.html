@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Housing Price Prediction</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2, h4 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Housing Price Prediction</h2>
+        <form method="POST" action="/predict">
+            <input type="text" name="longitude" placeholder="Longitude" required>
+            <input type="text" name="latitude" placeholder="Latitude" required>
+            <input type="text" name="housing_median_age" placeholder="Housing Median Age" required>
+            <input type="text" name="total_rooms" placeholder="Total Rooms" required>
+            <input type="text" name="total_bedrooms" placeholder="Total Bedrooms" required>
+            <input type="text" name="population" placeholder="Population" required>
+            <input type="text" name="households" placeholder="Households" required>
+            <input type="text" name="median_income" placeholder="Median Income" required>
+
+            <select name="ocean_proximity" required>
+                <option value="">Select Ocean Proximity</option>
+                <option value="NEAR BAY">NEAR BAY</option>
+                <option value="INLAND">INLAND</option>
+                <option value="NEAR OCEAN">NEAR OCEAN</option>
+                <option value="ISLAND">ISLAND</option>
+                <option value="<1H OCEAN">Less than 1 hour to Ocean</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+        <h4>{{ prediction_text }}</h4>
+        {% endif %}
+    </div>
+</body>
+</html>
